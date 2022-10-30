@@ -84,9 +84,9 @@ public class detail extends HttpServlet {
         int uid = Integer.parseInt(request.getParameter("uid"));
        String id = request.getParameter("id");
         DAO dao = new DAO();
-       if(id != null){
+       if(id != null && !id.trim().isEmpty()){
             dao.updateAuctionPrice(price, id, uid); 
-       }else
+       }else 
            dao.insertAuctionPrice(price, pk, uid);
            
            

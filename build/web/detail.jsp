@@ -132,11 +132,11 @@
     </div>
     	<div id="bid-frm">
 		<div class="col-md-12">
-			<form id="manage-bid">
-				
+			<form id="manage-bid">				
                                 <input type="hidden" id="account" value="${uid.getuID()}">
                                  <input type="hidden" id="currentuid" value="${currentbidding}">
                                  <input type="hidden" id="auction_id" value="${list.getId()}">
+                                   <input type="hidden" id="currentid" value="${currentid}">
 				<div class="form-group">
 					<label for="" class="control-label">Bid Amount</label>
 					<input type="number" class="form-control text-right" name="bid_amount" >
@@ -362,7 +362,7 @@
              var account = $("#account").val();
               var currentid = $("#currentid").val();
 //            latest = latest.replace(/,/g,'');
-            console.log(latest,auction_id);
+            console.log(latest,auction_id,currentid);
             if(parseFloat(latest)  > $('[name="bid_amount"]').val()){
             	toastr.error("Bid amount must be greater than the current Highest Bid.");
             	end_load();
