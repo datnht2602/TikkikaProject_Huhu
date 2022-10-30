@@ -561,14 +561,30 @@ public class DAO {
             }
             return null;
         }
-                   public void updateAuctionPrice( int price,int id,int uid){
-            String sql = "UPDATE bids set bid_amount = ? where product_id =? and user_id = ?";
+                   public void updateAuctionPrice( int price,String id,int uid){
+            String sql = "UPDATE bids set bid_amount = ?,user_id =? where  id= ?";
         try {
             con = new DBUtils().getConnection();
             stm = con.prepareStatement(sql);
             stm.setInt(1, price);
+              stm.setInt(2, uid); 
+          stm.setString(3,id);
+            int rs = stm.executeUpdate();
+//                if(rs > 0){
+//                    return true;
+//                }
+        } catch (Exception e) {
+        }
+      
+       }
+           public void insertAuctionPrice( int price,int id,int uid){
+            String sql = "insert into bids (user_id,product_id, bid_amount) values (?,?,?)";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, uid);
               stm.setInt(2, id); 
-          stm.setInt(3,uid);
+          stm.setInt(3,price);
             int rs = stm.executeUpdate();
 //                if(rs > 0){
 //                    return true;

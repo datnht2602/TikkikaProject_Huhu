@@ -99,6 +99,7 @@
                                                                                                  <c:if test="${bidding1.getProduct_id()==currentId}">
                                                                                                      <c:set  var="highestAmount">${bidding1.getBid_amout()}</c:set>
                                                                                                       <c:set  var="currentbidding">${bidding1.getUser_id()}</c:set>
+                                                                                                      <c:set  var="currentid">${bidding1.getId()}</c:set>
                                                                                                  </c:if>                                                                                               
                                                                                              </c:forEach>
   
@@ -129,7 +130,6 @@
         </div>
     
     </div>
-    <!-- Shop Detail End -->
     	<div id="bid-frm">
 		<div class="col-md-12">
 			<form id="manage-bid">
@@ -360,6 +360,7 @@
             var auction_id = $("#auction_id").val();
              var currentuid= $("#currentuid").val();
              var account = $("#account").val();
+              var currentid = $("#currentid").val();
 //            latest = latest.replace(/,/g,'');
             console.log(latest,auction_id);
             if(parseFloat(latest)  > $('[name="bid_amount"]').val()){
@@ -376,7 +377,7 @@
             $.ajax({
                 url:'detail',
                 method:'post',
-                data:{price : $('[name="bid_amount"]').val(), pk :  auction_id, uid: account },
+                data:{price : $('[name="bid_amount"]').val(), pk :  auction_id, uid: account,id: currentid },
                 success:function(){                
                         toastr.success("Bid successfully submited");          			
                    
