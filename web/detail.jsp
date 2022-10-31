@@ -102,11 +102,9 @@
                                                                                                       <c:set  var="currentid">${bidding1.getId()}</c:set>
                                                                                                  </c:if>                                                                                               
                                                                                              </c:forEach>
-                    <c:if test="${highestAmount == null}">
-                          <c:set  var="highestAmount">${list.getStart_bid()}</c:set>
-                    </c:if>
+      
   
-                   <p>Highest Bid: <b id="hbid">${highestAmount}</b></p>
+                   <p>Highest Bid: <b id="hbid">${list.getStart_bid()}</b></p>
                       <p class="mb-4"> Gia Khoi Diem : ${list.getStart_bid()}</p>
                          <c:forEach items="${category}" var="category1">
                                                                                                  <c:if test="${category1.getId()==currentcategory}">
@@ -343,19 +341,20 @@
         $(this).remove();
       })
   }
-//   var _updateBid = setInterval(function(){
-//       var auction_id = $("#auction_id").val();
-//    	$.ajax({
-//    		url:'getHighestBidding',
-//    		method:'POST',
-//    		data:{product_id:auction_id},
-//    		success:function(responseText){
-//    			
-//    				$('#hbid').text(responseText)
-//    		
-//    		}
-//    	})
-//    },1000)
+   var _updateBid = setInterval(function(){
+       var auction_id = $("#auction_id").val();
+    	$.ajax({
+    		url:'getHighestBidding',
+    		method:'POST',
+    		data:{product_id:auction_id},
+    		success:function(responseText){
+    			var sec = parseInt(responseText);
+                        if(sec && sec > 0)
+    				$('#hbid').text(responseText)
+    		
+    		}
+    	})
+    },1000)
      $('#manage-bid').submit(function(e){
     	e.preventDefault()
             start_load();
