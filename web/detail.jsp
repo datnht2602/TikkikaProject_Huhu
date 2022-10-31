@@ -102,6 +102,9 @@
                                                                                                       <c:set  var="currentid">${bidding1.getId()}</c:set>
                                                                                                  </c:if>                                                                                               
                                                                                              </c:forEach>
+                    <c:if test="${highestAmount == null}">
+                          <c:set  var="highestAmount">${list.getStart_bid()}</c:set>
+                    </c:if>
   
                    <p>Highest Bid: <b id="hbid">${highestAmount}</b></p>
                       <p class="mb-4"> Gia Khoi Diem : ${list.getStart_bid()}</p>
@@ -340,19 +343,19 @@
         $(this).remove();
       })
   }
-   var _updateBid = setInterval(function(){
-       var auction_id = $("#auction_id").val();
-    	$.ajax({
-    		url:'getHighestBidding',
-    		method:'POST',
-    		data:{product_id:auction_id},
-    		success:function(responseText){
-    			
-    				$('#hbid').text(responseText)
-    		
-    		}
-    	})
-    },1000)
+//   var _updateBid = setInterval(function(){
+//       var auction_id = $("#auction_id").val();
+//    	$.ajax({
+//    		url:'getHighestBidding',
+//    		method:'POST',
+//    		data:{product_id:auction_id},
+//    		success:function(responseText){
+//    			
+//    				$('#hbid').text(responseText)
+//    		
+//    		}
+//    	})
+//    },1000)
      $('#manage-bid').submit(function(e){
     	e.preventDefault()
             start_load();
@@ -380,7 +383,7 @@
                 data:{price : $('[name="bid_amount"]').val(), pk :  auction_id, uid: account,id: currentid },
                 success:function(){                
                         toastr.success("Bid successfully submited");          			
-                   
+                        location.reload();
                 }
             });
         });
