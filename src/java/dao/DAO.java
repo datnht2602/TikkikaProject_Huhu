@@ -11,6 +11,7 @@ import entity.InfoAuction;
 import entity.InfoCart;
 import entity.InforPayment;
 import entity.Items;
+import entity.Message;
 import entity.Notication;
 import entity.Product;
 import entity.bids;
@@ -867,4 +868,66 @@ public class DAO {
             }
             return list;  
         }
+          public List<Message> getMessage(int UserId1,int ToUser1,int UserId2,int ToUser2){
+          List<Message> list = new ArrayList<>();
+            String sql ="select * from messages where(FromUser =? and ToUser=?) or(FromUser=? and ToUser=?)";
+            try{
+                con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+                stm.setInt(1, UserId1);
+                stm.setInt(2, ToUser1);
+                stm.setInt(3, UserId2);
+                stm.setInt(4, ToUser2);
+            rs = stm.executeQuery();
+              while(rs.next()){
+                   int id = rs.getInt(1);
+                   int FromUser = rs.getInt(2);
+                   int ToUser = rs.getInt(3);
+                   String message = rs.getString(4);
+                    list.add(new Message(id, FromUser, ToUser, message));
+            } 
+            }catch(Exception e){
+                
+            }
+            return list;  
+        }
+           public List<Message> getMessage1(String UserId1,String ToUser1,String UserId2,String ToUser2){
+          List<Message> list = new ArrayList<>();
+            String sql ="select * from messages where(FromUser =? and ToUser=?) or(FromUser=? and ToUser=?)";
+            try{
+                con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+                stm.setString(1, UserId1);
+                stm.setString(2, ToUser1);
+                stm.setString(3, UserId2);
+                stm.setString(4, ToUser2);
+            rs = stm.executeQuery();
+              while(rs.next()){
+                   int id = rs.getInt(1);
+                   int FromUser = rs.getInt(2);
+                   int ToUser = rs.getInt(3);
+                   String message = rs.getString(4);
+                    list.add(new Message(id, FromUser, ToUser, message));
+            } 
+            }catch(Exception e){
+                
+            }
+            return list;  
+        }
+                public void insertMessage(String fromUser, String toUser,String message){
+         String sql = "insert into messages(FromUser,ToUser,Message) values(?,?,?)";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setString(1, fromUser);
+            stm.setString(2, toUser);
+             stm.setString(3, message);
+           stm.executeUpdate();
+//                if(rs > 0){
+//                    return true;
+//                }
+        } catch (Exception e) {
+        }
+//        return false;
+    }
 }

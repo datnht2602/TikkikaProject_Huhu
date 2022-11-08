@@ -132,6 +132,14 @@
         <servlet-name>DeleteNotif</servlet-name>
         <servlet-class>servlet.DeleteNotif</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>insertMessage</servlet-name>
+        <servlet-class>servlet.insertMessage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>realTimeChat</servlet-name>
+        <servlet-class>servlet.realTimeChat</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/HomeServlet</url-pattern>
@@ -263,6 +271,14 @@
     <servlet-mapping>
         <servlet-name>DeleteNotif</servlet-name>
         <url-pattern>/DeleteNotif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>insertMessage</servlet-name>
+        <url-pattern>/insertMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>realTimeChat</servlet-name>
+        <url-pattern>/realTimeChat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

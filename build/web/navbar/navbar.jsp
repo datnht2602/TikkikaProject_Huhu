@@ -4,6 +4,7 @@
     Author     : Derek
 --%>
 
+<%@page import="entity.Message"%>
 <%@page import="entity.InforPayment"%>
 <%@page import="entity.Notication"%>
 <%@page import="java.util.List"%>
@@ -18,12 +19,31 @@
 <%
     AccountDTO a = (AccountDTO) session.getAttribute("acc");
     request.setAttribute("uid", a);
+     
     DAO dao = new DAO();
     if (a != null) {
         List<Notication> Notication = dao.listNotif(a.getuID());
         request.setAttribute("Notication", Notication);
         List<InforPayment> listPayment = dao.getPayment(a.getuID());
         request.setAttribute("listPayment", listPayment);
+        List<AccountDTO> listAcc = dao.displayAccount();
+        request.setAttribute("listAcc", listAcc);
+            String toUser = request.getParameter("toUser");
+    if(toUser!=null){
+    int toUserID = Integer.parseInt(toUser);
+        AccountDTO uName= dao.searchAccount(toUserID);
+        request.setAttribute("uName", uName);
+        List<Message> chats = dao.getMessage(a.getuID(), toUserID, toUserID, a.getuID());
+    request.setAttribute("chats", chats);
+    }   
+    else{
+        List<AccountDTO> uName = dao.displayAccount();
+        for(AccountDTO sessionToUser : uName){
+           session.setAttribute("SessiontoUSer", sessionToUser.getuID());         
+    }
+//        List<Message> chats = dao.getMessage(a.getuID(), SessiontoUSer, SessiontoUSer, a.getuID());
+    }
+    
     }
 
 %> 
@@ -83,7 +103,7 @@
                                                                     <a href="checkout.html" class="dropdown-item">Don Purchase</a>
                                                                 </div>
                                                             </div>-->
-                                <a href="contact.html" class="nav-item nav-link">Chat</a>
+                                <a href="chatbox01.jsp?id=${uid.getuID()}" class="nav-item nav-link">Chat</a>
                                 <div class="nav-item dropdown" >
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Thong Bao <i class="fa fa-angle-down mt-1"></i></a>
                                     <div class="dropdown-menu bg-white rounded-0 border-0 m-0">

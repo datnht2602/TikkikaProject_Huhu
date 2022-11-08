@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/ManageAuctionServlet.java</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/UpdateAuctionServlet.java</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/chatbox.jsp</file>
             <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/dao/DAO.java</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/updateAuction.jsp</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/addAuctionProduct.jsp</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/AddAuctionProductServlet.java</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/navbar/navbar.jsp</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/entity/Message.java</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/detail.jsp</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/realTimeChat.java</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/insertMessage.java</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/entity/AccountDTO.java</file>
         </group>
     </open-files>
 </project-private>
