@@ -9,10 +9,13 @@ import entity.AccountDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
@@ -70,7 +73,7 @@ public class AddAccountServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
            String username = request.getParameter("user");
         String password = request.getParameter("pass");
@@ -82,8 +85,10 @@ public class AddAccountServlet extends HttpServlet {
             DAO dao = new DAO();
             AccountDTO a = dao.checkExistAcc(username);
             if(a == null){
-                dao.signup(username, password);
-                response.sendRedirect("HomeServlet");
+           
+                    dao.signup(username, password);
+                    response.sendRedirect("HomeServlet");
+             
             }else{
                 request.setAttribute("mess","Account existed");
             request.getRequestDispatcher("register.jsp").forward(request, response);

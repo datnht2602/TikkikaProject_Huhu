@@ -5,24 +5,18 @@
 package servlet;
 
 import dao.DAO;
-import entity.Items;
-import entity.Order;
-import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Derek
  */
-public class AddToCartServlet extends HttpServlet {
+public class DeleteNotif extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +30,9 @@ public class AddToCartServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-    
+      String id = request.getParameter("id");
+      DAO dao = new DAO();
+      dao.deleteNotif(id);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,51 +47,7 @@ public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int quantity = 1;
-        if(request.getParameter("id") != null){
-            DAO dao = new DAO();
-            String id = request.getParameter("id");
-            Product result = dao.getProductByPId(id);
-            if(result != null){
-                if(request.getParameter("quantity")!=null){
-                    quantity = Integer.parseInt(request.getParameter("quantity"));
-                }
-                HttpSession session = request.getSession();
-                if(session.getAttribute("order")==null){
-                    Order order= new Order();
-                    List<Items> list = new ArrayList<>();
-                    Items item = new Items();
-                    item.setQuantity(quantity);
-                    item.setProduct(result);
-                    item.setPrice(result.getPrice());
-                    list.add(item);
-                    order.setItems(list);
-                    session.setAttribute("order", order);
-                }else{
-                    Order order = (Order) session.getAttribute("order");
-                    List<Items> list = order.getItems();
-                    boolean check = false;
-                    for(Items item: list){
-                        if(item.getProduct().getId()==result.getId()){
-                            item.setQuantity(item.getQuantity()+quantity);
-                            check = true;
-                        }
-                    }
-                    if(check==false){
-                        Items item = new Items();
-                        item.setQuantity(quantity);
-                        item.setProduct(result);
-                        item.setPrice(result.getPrice());
-                        list.add(item);
-                    }
-                    session.setAttribute("order", order);
-                }
-            }
-           
-            response.sendRedirect("HomeServlet");
-        }else{
-            response.sendRedirect("HomeServlet");
-        }
+        processRequest(request, response);
     }
 
     /**

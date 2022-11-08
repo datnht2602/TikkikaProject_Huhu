@@ -45,10 +45,6 @@
         <servlet-class>servlet.UpdateProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddToCartServlet</servlet-name>
-        <servlet-class>servlet.AddToCartServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>quantitychange</servlet-name>
         <servlet-class>servlet.quantitychange</servlet-class>
     </servlet>
@@ -73,10 +69,6 @@
         <servlet-class>servlet.DeleteAccountServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CartServlet</servlet-name>
-        <servlet-class>servlet.CartServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>IncDecServlet</servlet-name>
         <servlet-class>servlet.IncDecServlet</servlet-class>
     </servlet>
@@ -87,10 +79,6 @@
     <servlet>
         <servlet-name>managenew</servlet-name>
         <servlet-class>servlet.managenew</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddAuctionProduct</servlet-name>
-        <servlet-class>servlet.AddAuctionProduct</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddAuctionProductServlet</servlet-name>
@@ -119,6 +107,30 @@
     <servlet>
         <servlet-name>getHighestBidding</servlet-name>
         <servlet-class>servlet.getHighestBidding</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>detailProduct</servlet-name>
+        <servlet-class>servlet.detailProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>servlet.CartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCart</servlet-name>
+        <servlet-class>servlet.DeleteCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getTotalCart</servlet-name>
+        <servlet-class>servlet.getTotalCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <servlet-class>servlet.CheckOutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteNotif</servlet-name>
+        <servlet-class>servlet.DeleteNotif</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
@@ -165,10 +177,6 @@
         <url-pattern>/UpdateProductServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddToCartServlet</servlet-name>
-        <url-pattern>/AddToCartServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>quantitychange</servlet-name>
         <url-pattern>/quantitychange</url-pattern>
     </servlet-mapping>
@@ -205,10 +213,6 @@
         <url-pattern>/managenew</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddAuctionProduct</servlet-name>
-        <url-pattern>/AddAuctionProduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddAuctionProductServlet</servlet-name>
         <url-pattern>/AddAuctionProductServlet</url-pattern>
     </servlet-mapping>
@@ -236,6 +240,30 @@
         <servlet-name>getHighestBidding</servlet-name>
         <url-pattern>/getHighestBidding</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>detailProduct</servlet-name>
+        <url-pattern>/detailProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/CartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCart</servlet-name>
+        <url-pattern>/DeleteCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getTotalCart</servlet-name>
+        <url-pattern>/getTotalCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <url-pattern>/CheckOutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteNotif</servlet-name>
+        <url-pattern>/DeleteNotif</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             3000
@@ -244,4 +272,5 @@
     <welcome-file-list>
         <welcome-file>HomeServlet</welcome-file>
     </welcome-file-list>
+    <dependency/>
 </web-app>

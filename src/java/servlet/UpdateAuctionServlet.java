@@ -9,6 +9,9 @@ import entity.Auction;
 import entity.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -68,7 +71,23 @@ public class UpdateAuctionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id= request.getParameter("id");
+       String name= request.getParameter("name");
+       String cate = request.getParameter("category");
+       String description = request.getParameter("description");
+       String regular_price = request.getParameter("regular_price");
+       String start_bid = request.getParameter("start_bid");
+       String image = request.getParameter("image");
+       String valueFromHtml= request.getParameter("birthdaytime");
+        String dateTimeString = valueFromHtml.replace("T", " ");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
+        Timestamp examDateTime = Timestamp.valueOf(dateTime);
+        String datetime = examDateTime.toString();
+        DAO dao = new DAO();
+        dao.updateAuction(name, cate, description, regular_price, start_bid, image, datetime, id);
+        request.getRequestDispatcher("ManageAuctionServlet").forward(request, response);
     }
 
     /**

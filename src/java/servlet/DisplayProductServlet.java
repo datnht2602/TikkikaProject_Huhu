@@ -36,11 +36,17 @@ public class DisplayProductServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         AccountDTO a = (AccountDTO) session.getAttribute("acc");
-        int id = a.getuID();
+         if(a == null){
+            response.sendRedirect("login.jsp");
+        }else{
+                int id = a.getuID();
         DAO dao = new DAO();
         List<Product> list = dao.getProductBySellId(id);
         request.setAttribute("list", list);
+       
         request.getRequestDispatcher("manageNews.jsp").forward(request, response);
+         }
+     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

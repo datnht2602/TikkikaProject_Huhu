@@ -5,20 +5,18 @@
 package servlet;
 
 import dao.DAO;
-import entity.AccountDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Derek
  */
-public class DeleteProductServlet extends HttpServlet {
+public class DeleteCart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,15 +30,14 @@ public class DeleteProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          String pk = request.getParameter("pk");
-             String name = request.getParameter("name");
+       String uid = request.getParameter("uid");
+       int id = Integer.parseInt(uid);
+        String pid = request.getParameter("pid");
+                String name = request.getParameter("name");
+        System.out.println(name + " "+ id);
             DAO dao = new DAO();
-                 HttpSession session = request.getSession();
-        AccountDTO a = (AccountDTO) session.getAttribute("acc");
-        int sid = a.getuID();
-                 dao.updateNotification(sid, "vua xoa san pham " + name );
-            dao.deleteProduct(pk);
-
+             dao.updateNotification(id, "vua xoa khoi gio hang  " + name );
+           dao.deleteCart(uid, pid);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

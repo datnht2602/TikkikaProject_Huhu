@@ -68,7 +68,7 @@
                                     <input type="hidden" name="id" value="${dto.getId()}" />
                                 </td>
 				<td style="text-align:center;">${dto.getName()}
-                                    
+                                   <input type="hidden" name="name" value="${dto.getName()}" />  
                                 </td>
                                
                                  <td><img src="${dto.getImage()}" width="120" height="150">
@@ -135,10 +135,11 @@
         });
           $("#deleteCate").click(function(){
             var pk = $("#category_id").val();
+            var name = $("#name").val();
             $.ajax({
                  type: "GET",
                                 url : "DeleteProductServlet",
-                                data: {pk: pk},
+                                data: {pk: pk,name:name},
                success: function(){
                    toastr.success("Deleted successfully");
                   $(row).closest('tr').remove();

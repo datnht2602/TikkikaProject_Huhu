@@ -8,10 +8,15 @@ import entity.AccountDTO;
 import entity.Auction;
 import entity.Category;
 import entity.InfoAuction;
+import entity.InfoCart;
+import entity.InforPayment;
 import entity.Items;
+import entity.Notication;
 import entity.Product;
 import entity.bids;
 import helper.DBUtils;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.management.Notification;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -59,6 +66,33 @@ public class DAO {
             try{
                 con = new DBUtils().getConnection();
             stm = con.prepareStatement(sql);
+            rs = stm.executeQuery();
+              while(rs.next()){
+                    int id = rs.getInt(1);
+                    int cateID= rs.getInt(2);
+                    String name = rs.getString(3);
+                    String description = rs.getString(4);
+                    float start_bid = rs.getFloat(5);
+                    float regular_price = rs.getFloat(6);
+                    String bid_end_datetime = rs.getString(7);
+                    
+                    String img_fname = rs.getString(8);
+                    String date_created= rs.getString(9);
+                    Auction dto = new Auction(id, cateID, name, description, bid_end_datetime, img_fname, date_created, start_bid, regular_price);
+                    list.add(dto);
+            } 
+            }catch(Exception e){
+                
+            }
+            return list;
+        }
+                     public List<Auction> getAllAuctionProductByID(int uid){
+            List<Auction> list = new ArrayList<>();
+            String sql ="select * from Auction where uid = ? ";
+            try{
+                con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+              stm.setInt(1,uid);
             rs = stm.executeQuery();
               while(rs.next()){
                     int id = rs.getInt(1);
@@ -279,6 +313,35 @@ public class DAO {
         }
 //        return false;
     }
+               public void deleteCart(String uid,String pid){
+         String sql = "delete from Cart where AccountID = ? and ProductID=?";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setString(1, uid);
+            stm.setString(2, pid);
+           stm.executeUpdate();
+//                if(rs > 0){
+//                    return true;
+//                }
+        } catch (Exception e) {
+        }
+//        return false;
+    }
+                     public void deleteCartByUID(int uid){
+         String sql = "delete from Cart where AccountID = ?";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, uid);
+           stm.executeUpdate();
+//                if(rs > 0){
+//                    return true;
+//                }
+        } catch (Exception e) {
+        }
+//        return false;
+    }
               public void deleteAuction(String pk){
          String sql = "delete from Auction where id = ?";
         try {
@@ -314,10 +377,43 @@ public class DAO {
         }
         return false;
     }
-          public boolean addAuctionProduct(String name,  int cateId,  String description,  float regular_price, float start_bid, String date, String image){
-        String sql = "INSERT INTO Auction (category_id, name,description,start_bid,regular_price,bid_end_datetime,img_fname)\n" +
+       public void updateNotification(int uid, String notification){
+               String sql = "insert into Notification(AccountID,Notification) values(? ,? )";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, uid);
+            stm.setString(2, notification);
+            int rs = stm.executeUpdate();
+        } catch (Exception e) {
+        }
+       }
+       public List<Notication> listNotif(int uid){
+                  List<Notication> list = new ArrayList<>();
+            String sql ="Select n.id, a.name, n.Notification\n" +
+"from Account a inner join Notification n on a.uID = n.AccountID\n" +
+"where a.uID = ?";
+            try{
+                con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setInt(1,uid);
+            rs = stm.executeQuery();
+              while(rs.next()){
+                    int id = rs.getInt(1);
+                    String name = rs.getString(2);
+                    String notif = rs.getString(3);
+                    Notication dto = new Notication(name, notif, id);
+                    list.add(dto);
+            } 
+            }catch(Exception e){
+                
+            }
+            return list;
+        }
+          public boolean addAuctionProduct(String name,  int cateId,  String description,  float regular_price, float start_bid, String date, String image,int uid){
+        String sql = "INSERT INTO Auction (category_id, name,description,start_bid,regular_price,bid_end_datetime,img_fname,uid)\n" +
 "\n" +
-"VALUES (?,?,?,?,?,?,?);";
+"VALUES (?,?,?,?,?,?,?,?)";
         try {
             con = new DBUtils().getConnection();
             stm = con.prepareStatement(sql);
@@ -328,7 +424,7 @@ public class DAO {
             stm.setFloat(5, regular_price);
             stm.setString(6, date);
             stm.setString(7,image);
-   
+            stm.setInt(8,uid);
             int rs = stm.executeUpdate();
  System.out.println("Add Auction Product:" + name);
                 if(rs > 0){
@@ -575,6 +671,29 @@ public class DAO {
 //                }
         } catch (Exception e) {
         }
+        
+      
+       }
+         public void updateAuction( String name,String cate,String description,String regular_price,String bid_amount,String image,String bdt,String id){
+            String sql = "UPDATE Auction set category_id = ?,name =?,description = ?,start_bid=?,regular_price=?,bid_end_datetime=?,img_fname=?  where  id= ?";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+           stm.setString(1,cate);
+          stm.setString(2,name);
+          stm.setString(3,description);
+          stm.setString(4,bid_amount);
+          stm.setString(5,regular_price);
+          stm.setString(6,bdt);
+          stm.setString(7,image);
+          stm.setString(8,id);
+            int rs = stm.executeUpdate();
+//                if(rs > 0){
+//                    return true;
+//                }
+        } catch (Exception e) {
+        }
+        
       
        }
            public void insertAuctionPrice( int price,int id,int uid){
@@ -635,5 +754,117 @@ public class DAO {
                 
             }
             return list;
+        }
+ 
+              public void addCart(String uid, String pid, String price){
+        String sql = "insert into Cart(AccountID,ProductID,Amount) values(? ,? ,?)";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setString(1, uid);
+            stm.setString(2, pid);
+            stm.setString(3, price);
+            int rs = stm.executeUpdate();
+               
+        } catch (Exception e) {
+        }
+    }
+                public List<InfoCart> getCart(int pk){
+            List<InfoCart> list = new ArrayList<>();
+            String sql ="SELECT b.*,p.image,p.name FROM Cart b inner join Account u on u.uID = b.AccountID inner join product p on p.id = b.ProductID where b.AccountID = ?";
+            try{
+                con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+                stm.setInt(1, pk);
+            rs = stm.executeQuery();
+              while(rs.next()){
+                    int uid = rs.getInt(1);
+                    int pid= rs.getInt(2);
+                    int price = rs.getInt(3);
+                   String image = rs.getString(4);
+                   String name = rs.getString(5);
+                  InfoCart dto = new InfoCart(uid, pid, price, name, image);
+                    list.add(dto);
+            } 
+            }catch(Exception e){
+                
+            }
+            return list;
+        }
+                   public int getTotalCart(String id){
+         String sql = "SELECT SUM(Amount) as total\n" +
+"FROM Cart\n" +
+"where AccountID= ?";
+         int count;
+           try{
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setString(1,id);
+            rs = stm.executeQuery();
+              while(rs.next()){
+                    count = rs.getInt(1);            
+                   return count;
+                      
+            } 
+            }catch(Exception e){
+                
+            }
+          return 0;
+     }
+         public void insertOrder(int uid, int pid){
+         String sql = "insert into CheckOut(AccountID,ProductID) values(?,?)";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, uid);
+            stm.setInt(2, pid);
+           stm.executeUpdate();
+//                if(rs > 0){
+//                    return true;
+//                }
+        } catch (Exception e) {
+        }
+//        return false;
+    }
+                    public void deleteNotif( String id){
+            String sql = "Delete from Notification where  id= ?";
+        try {
+            con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+            stm.setString(1, id);
+            int rs = stm.executeUpdate();
+//                if(rs > 0){
+//                    return true;
+//                }
+        } catch (Exception e) {
+        }
+                    }
+        public List<InforPayment> getPayment(int uid){
+          List<InforPayment> list = new ArrayList<>();
+            String sql ="select a.name,a.email,a.address,a.contact,p.image,p.name,p.price,c.date_created,p.id \n" +
+"from ACCOUNT a inner join Product p on p.sell_ID= a.uID inner join CheckOut c on c.ProductID= p.id\n" +
+"where c.AccountID = ?";
+            try{
+                con = new DBUtils().getConnection();
+            stm = con.prepareStatement(sql);
+                stm.setInt(1, uid);
+            rs = stm.executeQuery();
+              while(rs.next()){
+                    String nameUser = rs.getString(1);
+                    String email = rs.getString(2);
+                    String address= rs.getString(3);
+                    String phone = rs.getString(4);
+                    String image = rs.getString(5);
+                    String nameProduct = rs.getString(6);
+                    int price = rs.getInt(7);
+                   String date_createdd = rs.getString(8);
+                      int pid = rs.getInt(9);
+                  InforPayment dto = new InforPayment(nameUser, email, address, phone, image, nameProduct, date_createdd, price,pid);
+                    list.add(dto);
+            } 
+            }catch(Exception e){
+                
+            }
+            return list;  
         }
 }

@@ -50,7 +50,7 @@
                             </c:if>
                                
                               <c:if test="${sessionScope.acc != null}">
-                            <a href="login.jsp" class="btn px-0 ml-3" style="color: black">
+                            <a href="payment.jsp" class="btn px-0 ml-3" style="color: black">
                                 <i class="fas fa-info text-primary" ></i>
                                Hello ${sessionScope.acc.getUsername()}
                             </a>

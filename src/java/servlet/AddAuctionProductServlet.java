@@ -6,6 +6,7 @@ package servlet;
 
 import com.microsoft.sqlserver.jdbc.StringUtils;
 import dao.DAO;
+import entity.AccountDTO;
 import entity.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -91,7 +93,9 @@ public class AddAuctionProductServlet extends HttpServlet {
         int cateId= Integer.parseInt(request.getParameter("category"));
           System.out.println(cateId);
         DAO dao = new DAO();
-        if(dao.addAuctionProduct(name, cateId, description, regular_price, start_bid, datetime, image)){
+         HttpSession session = request.getSession();
+        AccountDTO a = (AccountDTO) session.getAttribute("acc");
+        if(dao.addAuctionProduct(name, cateId, description, regular_price, start_bid, datetime, image,a.getuID())){
             response.sendRedirect("ManageAuctionServlet");
         }
     }

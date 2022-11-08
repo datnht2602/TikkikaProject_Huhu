@@ -5,8 +5,10 @@
 package servlet;
 
 import dao.DAO;
+import entity.AccountDTO;
 import entity.Auction;
 import entity.Category;
+import entity.Product;
 import entity.bids;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,14 +37,21 @@ public class ManageAuctionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       DAO dao = new DAO();
-        List<Auction> list = dao.getAllAuctionProduct();
+         HttpSession session = request.getSession();
+        AccountDTO a = (AccountDTO) session.getAttribute("acc");
+         if(a == null){
+            response.sendRedirect("login.jsp");
+        }else{
+         DAO dao = new DAO();
+        List<Auction> list = dao.getAllAuctionProductByID(a.getuID());
         request.setAttribute("list", list);
         List<bids> biggestAmount = dao.getHighestBiddingAmount();
         request.setAttribute("bidding", biggestAmount);
             List<Category> category = dao.getAllCategory();
     request.setAttribute("category", category);
         request.getRequestDispatcher("quanLyAuction.jsp").forward(request, response);
+         }
+     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -105,7 +105,6 @@
   </b></small></p>
 										 <p><small>Total Bids: <b class="total_bid">                          
                                                                         <%
-                                                                DAO dao = new DAO();
                                                                    String resp2 = (String)pageContext.getAttribute("currentId"); 
                                                                 int count = dao.getTotalBidUsers(resp2);
     out.println(count);

@@ -6,8 +6,11 @@ package servlet;
 
 import dao.DAO;
 import entity.AccountDTO;
+import entity.InfoCart;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Derek
  */
-public class DeleteProductServlet extends HttpServlet {
+public class CheckOutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,15 +35,14 @@ public class DeleteProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          String pk = request.getParameter("pk");
-             String name = request.getParameter("name");
-            DAO dao = new DAO();
-                 HttpSession session = request.getSession();
+      HttpSession session = request.getSession();
         AccountDTO a = (AccountDTO) session.getAttribute("acc");
-        int sid = a.getuID();
-                 dao.updateNotification(sid, "vua xoa san pham " + name );
-            dao.deleteProduct(pk);
-
+        DAO dao = new DAO();
+        List<InfoCart> list = (ArrayList<InfoCart>) session.getAttribute("list");
+      for(InfoCart order:list){
+         dao.insertOrder(a.getuID(), order.getPid());
+      }
+      dao.deleteCartByUID(a.getuID());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

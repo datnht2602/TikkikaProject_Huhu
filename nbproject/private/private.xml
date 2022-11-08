@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/entity/bids.java</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/ManageAuctionServlet.java</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/UpdateAuctionServlet.java</file>
             <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/dao/DAO.java</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/detail.jsp</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/entity/Auction.java</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/DeleteAuctionServlet.java</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/entity/InfoAuction.java</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/detail.java</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/DisplayAuctionServlet.java</file>
-            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/hienThiDauGia.jsp</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/updateAuction.jsp</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/web/addAuctionProduct.jsp</file>
+            <file>file:/C:/xampp/htdocs/TikkikaProject_Huhu/src/java/servlet/AddAuctionProductServlet.java</file>
         </group>
     </open-files>
 </project-private>

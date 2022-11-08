@@ -80,6 +80,7 @@ public class AddProductServlet extends HttpServlet {
         int sid = a.getuID();
         DAO dao = new DAO();
         if(dao.addProduct(name, image, price, title, description, cateId, sid)){
+            dao.updateNotification(sid, "vua them san pham " + name );
             response.sendRedirect("DisplayProductServlet");
         }
         

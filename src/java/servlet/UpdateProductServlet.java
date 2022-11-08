@@ -80,9 +80,12 @@ request.setCharacterEncoding("utf-8");
          String description = request.getParameter("description");
          String image= request.getParameter("image");
           int cateID = Integer.parseInt(request.getParameter("category"));
- 
+               HttpSession session = request.getSession();
+        AccountDTO a = (AccountDTO) session.getAttribute("acc");
+        int sid = a.getuID();
         DAO dao = new DAO();
         if(dao.updateProduct(name, image, price, title, description, cateID, id)){
+                      dao.updateNotification(sid, "vua chinh sua san pham " + name );
             request.getRequestDispatcher("DisplayProductServlet").forward(request, response);
         }
     }

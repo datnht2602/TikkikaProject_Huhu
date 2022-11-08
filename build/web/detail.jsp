@@ -52,8 +52,7 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                    <a class="breadcrumb-item text-dark" href="HomeServlet">Home</a>
                     <span class="breadcrumb-item active">Shop Detail</span>
                 </nav>
             </div>
@@ -381,7 +380,7 @@
                 method:'post',
                 data:{price : $('[name="bid_amount"]').val(), pk :  auction_id, uid: account,id: currentid },
                 success:function(){                
-                        toastr.success("Bid successfully submited");          			
+                        toastr.success("Bid successfully submited");
                         location.reload();
                 }
             });

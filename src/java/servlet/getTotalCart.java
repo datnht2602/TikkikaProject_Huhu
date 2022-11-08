@@ -4,14 +4,11 @@
  */
 package servlet;
 
-
 import dao.DAO;
-import entity.AccountDTO;
-import entity.Category;
+import entity.bids;
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Derek
  */
-public class AddAuctionProduct extends HttpServlet {
+public class getTotalCart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +31,19 @@ public class AddAuctionProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-               DAO dao = new DAO();
-        List<Category> category = dao.getAllCategory();
-    request.setAttribute("category", category);
-    request.getRequestDispatcher("addAuctionProduct.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet getTotalCart</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet getTotalCart at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,18 +58,7 @@ public class AddAuctionProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//       String name = request.getParameter("name");
-//        float regular_price = Float.parseFloat(request.getParameter("regular_price"));
-//        float start_bid = Float.parseFloat(request.getParameter("start_bid"));
-//        String datetime= request.getParameter("bid_end_datetime");
-//        String description = request.getParameter("description");
-//
-//         String image = request.getParameter("image");
-//        int cateId= Integer.parseInt(request.getParameter("category"));
-//        DAO dao = new DAO();
-//        if(dao.addAuctionProduct(name, cateId, description, regular_price, start_bid, datetime, image)){
-//            response.sendRedirect("DisplayProductServlet");
-//        }
+        processRequest(request, response);
     }
 
     /**
@@ -77,7 +72,12 @@ public class AddAuctionProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+              DAO dao = new DAO();
+       String uid = request.getParameter("uid");
+        int result = dao.getTotalCart(uid);
+           response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().print(result);
     }
 
     /**
